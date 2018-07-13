@@ -1,0 +1,53 @@
+.htaccess
+node_modules
+wp-content/uploads/ninja-forms/
+wp-config*
+ninja-forms-submission.csv
+tickets/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+ 
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+# *.zip
+ 
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+ 
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+######################
+# OVERRIDES          #
+######################
+# Ignore uploads except for ninja-forms, which we do want to ignore
+!wp-content/uploads/*/*/*.zip
+!wp-content/uploads/*/*.zip
+!wp-content/uploads/*.zip
+wp-content/uploads/ninja-forms/*.zip
