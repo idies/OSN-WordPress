@@ -696,7 +696,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Columns margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_style_columns_margin',
 			[
 				'label'     => __( 'Columns margin', 'themeisle-companion' ),
@@ -718,7 +718,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Row margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_style_rows_margin',
 			[
 				'label'     => __( 'Rows margin', 'themeisle-companion' ),
@@ -759,7 +759,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Items internal padding.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_items_style_padding',
 			[
 				'label'      => __( 'Padding', 'themeisle-companion' ),
@@ -853,7 +853,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Image margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_image_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -915,7 +915,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Title margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_title_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -975,7 +975,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Meta margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_meta_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -1036,7 +1036,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Content margin
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_content_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -1100,7 +1100,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Price bottom margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_content_price_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -1350,7 +1350,7 @@ class Posts_Grid extends \Elementor\Widget_Base {
 		);
 
 		// Image margin.
-		$this->add_control(
+		$this->add_responsive_control(
 			'grid_pagination_style_margin',
 			[
 				'label'      => __( 'Margin', 'themeisle-companion' ),
@@ -1422,7 +1422,10 @@ class Posts_Grid extends \Elementor\Widget_Base {
 
 		// Pagination.
 		if ( ! empty( $settings['grid_pagination'] ) ) {
-			$paged         = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+			$paged         = get_query_var( 'paged' );
+			if ( empty( $paged ) ) {
+				$paged         = get_query_var( 'page' );
+			}
 			$args['paged'] = $paged;
 		}
 

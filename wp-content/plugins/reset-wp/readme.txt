@@ -4,13 +4,16 @@ Tags: reset wp, reset wordpress, wordpress reset, wp reset, reset, restart wordp
 Requires at least: 4.0
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Reset WordPress resets the WP database back to the default installation values without deleting or modifying any files.
 
 == Description ==
+
+**This plugin has a new home in the WordPress repo - <a href="https://wordpress.org/plugins/wp-reset/">wordpress.org/plugins/wp-reset/</a> - Please download it from there. Thank you!** More info about this change is available on the <a href="https://wpreset.com/rebranding-reset-wp/?utm_source=wordpressorg&utm_medium=content&utm_campaign=reset-wp&utm_term=wp%20reset%20blog">WP Reset blog</a>.
+
 
 <a href="https://wpreset.com/?utm_source=wordpressorg&utm_medium=content&utm_campaign=reset-wp&utm_term=reset%20wordpress">Reset WordPress</a> resets the WP database back to the default installation values without deleting or modifying any files. It's fast and safe to use and an ideal tool for testing during WP development.
 
@@ -36,7 +39,7 @@ Usage :
 Follow the standard routine;
 
 1. Open WordPress admin, go to Plugins, click Add New
-2. Enter "reset wp" in search and hit Enter
+2. Enter "wp reset" in search and hit Enter
 3. Plugin will show up as the first on the list, click "Install Now"
 4. Activate & open plugin's settings page located under the Tools menu
 
@@ -52,6 +55,10 @@ Or if needed, upload manually;
 1. Admin page screenshot
 
 == Changelog ==
+
+= 1.4 =
+* 2018/07/25
+* started moving users to WP Reset - https://wordpress.org/plugins/wp-reset/
 
 = 1.3 =
 * 2018/06/19
@@ -73,6 +80,10 @@ Or if needed, upload manually;
 
 
 == Frequently Asked Questions ==
+
+= Is Reset WP regularly maintained? =
+
+Yes, but **it will soon be removed from the repository**. Please install <a href="https://wordpress.org/plugins/wp-reset/">WP Reset</a> instead. It has the same functionality, it's created by the same people. It's free and safe to use. If you need more info about this change visit the <a href="https://wpreset.com/rebranding-reset-wp/?utm_source=wordpressorg&utm_medium=content&utm_campaign=reset-wp&utm_term=wp%20reset%20blog">WP Reset blog</a>.
 
 = How can I log in after resetting? =
 

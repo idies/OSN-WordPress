@@ -2,8 +2,8 @@
 /*
 Plugin Name: Reset WP
 Plugin URI: https://wpreset.com
-Description: Reset the WordPress database to the default installation values including all content and customizations. Only the database is reset. No files are modified or deleted.
-Version: 1.3
+Description: Reset the WordPress database to the default installation values including all content and customizations. This plugin will soon be removed from the WP repository and replaced with WP Reset.
+Version: 1.4
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Text Domain: reset-wp
@@ -28,14 +28,13 @@ if ( is_admin() ) {
 define( 'REACTIVATE_THE_RESET_WP', true );
 
 class ResetWP {
-	static $version = 1.3;
+	static $version = 1.4;
 	
 	function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_page' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_filter( 'favorite_actions', array( $this, 'add_favorite' ), 100 );
-		add_action( 'wp_before_admin_bar_render', array( $this, 'admin_bar_link' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'plugin_action_links') );
+    add_action( 'admin_action_replace_reset_wp', array($this, 'replace_reset_wp'));
 	}
 	
 	// Checks reset_wp post value and performs an installation, adding the users previous password also
@@ -130,23 +129,6 @@ class ResetWP {
 		add_action( "admin_footer-{$hook}", array( $this, 'footer_javascript' ) );
 	}
 	
-	function add_favorite( $actions ) {
-		$reset['tools.php?page=reset-wp'] = array( 'Reset WP', 'level_10' );
-		return array_merge( $reset, $actions );
-	}
-
-	function admin_bar_link() {
-		global $wp_admin_bar;
-		$wp_admin_bar->add_menu(
-			array(
-				'parent' => 'site-name',
-				'id'     => 'reset-wp',
-				'title'  => 'Reset WP',
-				'href'   => admin_url( 'tools.php?page=reset-wp' )
-			)
-		);
-	}
-	
 	// Inform the user that WordPress has been successfully reset
 	function admin_notices_successfully_reset() {
 		global $current_user;
@@ -195,6 +177,21 @@ class ResetWP {
 	<div class="wrap">
 		<h2>Reset WP</h2>
 
+    <div class="card">
+    <p><strong>This plugin will soon be removed from the WP repository &amp; replaced with <a target="_blank" href="https://wordpress.org/plugins/wp-reset/">WP Reset</a></strong></p>
+    <p>Except the name and the slug <b>NOTHING CHANGES</b>. Plugin remains simple, fast, free and maintained by the same dedicated developers. You can read more about the change on the <a target="_blank" href="https://wpreset.com/rebranding-reset-wp/?utm_source=reset-wp-free&utm_medium=plugin&utm_content=wp-reset-blog&utm_campaign=reset-wp-free-v<?php echo self::$version; ?>">WP Reset blog</a>.</p>
+    <?php
+    $replace_url = add_query_arg(array('action' => 'replace_reset_wp'), admin_url('admin.php'));
+    echo '<a class="button button-primary" id="upgrade-wp-reset">Replace plugin with the new version - WP Reset</a><br>';
+    echo '<p>What happens when I click the button? WP Reset will be downloaded from <a target="_blank" href="https://wordpress.org/plugins/wp-reset/">wordpress.org/plugins/wp-reset/</a> and activated. You\'ll be redirected to its admin page. This plugin will then be deactivated. Nothing is deleted or removed!</p>'; 
+    ?>
+		<script>
+			jQuery('#upgrade-wp-reset').on('click',function(){
+				jQuery('body').append('<div style="width:400px;height:540px; position:absolute;top:10%;left:50%;margin-left:-200px;background:#FFF;border:1px solid #DDD; border-radius:4px;box-shadow: 0px 0px 0px 4000px rgba(0, 0, 0, 0.85);z-index: 9999999;"><iframe src="<?php echo $replace_url; ?>" style="width:100%;height:100%;border:none;" /></div>');
+        jQuery('#wpwrap').css('pointer-events', 'none');
+			});
+		</script>
+    </div>
 		<div class="card">
 			<p><strong>After completing the reset operation, you will be automatically logged in and redirected to the dashboard.</strong></p>
 			
@@ -210,16 +207,92 @@ class ResetWP {
 				<input id="reset_wp_confirm" style="vertical-align: middle;" type="text" name="reset_wp_confirm" placeholder="Type in 'reset'">
 				<input id="reset_wp_submit" style="vertical-align: middle;" type="submit" name="Submit" class="button-primary" value="Reset">
 			</form>
+      
+      <p>Something is not right? Let us know in the <a href="https://wordpress.org/support/plugin/reset-wp" target="_blank">forums</a>.
 		</div>
 	</div>
     
-	<div class="card">
-	<p><b>Please help us keep the plugin going</b></p>
-		<p>If you enjoy this plugin, <b>please rate it on WordPress</b>. It only takes a second and helps us keep the plugin free and maintained.
-		<a title="Reset WP" target="_blank" href="https://wordpress.org/support/plugin/reset-wp/reviews/#new-post">Rate the plugin</a></p>
-	</div>
 	<?php
 	}
+  
+  function replace_reset_wp() {
+    $plugin_slug = 'wp-reset/wp-reset.php';
+    $plugin_zip = 'https://downloads.wordpress.org/plugin/wp-reset.latest-stable.zip';
+    
+    @include_once ABSPATH . 'wp-admin/includes/plugin.php';
+    @include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+    @include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+    @include_once ABSPATH . 'wp-admin/includes/file.php';
+    @include_once ABSPATH . 'wp-admin/includes/misc.php';
+		echo '<style>
+		body{
+			font-family: sans-serif;
+			font-size: 14px;
+			line-height: 1.5;
+			color: #444;
+		}
+
+		a{
+			color:#0073aa;
+		}
+
+		a:hover{
+			color:#00a0d2;
+			text-decoration:none;
+		}
+		</style>';
+
+    echo '<div style="margin: 30px;">';
+    echo 'If things are not done in a minute <a href="plugins.php" target="_parent">click here to return to Plugins page</a><br><br>';
+    echo 'Starting ...<br><br>';
+		
+		wp_cache_flush();
+    $upgrader = new Plugin_Upgrader();
+    echo 'Check if new plugin is already installed - ';
+    if ($this->is_plugin_installed($plugin_slug)) {
+      echo 'it\'s installed! Making sure it\'s the latest version.';
+      $upgrader->upgrade($plugin_slug);
+      $installed = true;
+    } else {
+      echo 'it\'s not installed. Installing.';
+      $installed = $upgrader->install($plugin_zip);
+    }
+    wp_cache_flush();
+    
+    if (!is_wp_error($installed) && $installed) {
+      echo 'Activating new plugin.';
+      $activate = activate_plugin($plugin_slug);
+      
+      if (is_null($activate)) {
+        echo '<br>Deactivating old plugin.<br>';
+        deactivate_plugins(array('reset-wp/reset-wp.php'));
+        
+        $options = get_option('wp-reset', array());
+        $options['meta']['reset-wp-user'] = true;
+        update_option('wp-reset', $options);
+        
+        echo '<script>setTimeout(function() { top.location = "tools.php?page=wp-reset"; }, 1000);</script>';
+        echo '<br>If you are not redirected to the new plugin in a few seconds - <a href="tools.php?page=wp-reset" target="_parent">click here</a>.';
+      }
+    } else {
+      echo 'Could not install WP Reset. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=wp+reset&tab=search&type=term') .'">download and install manually</a>.';
+    }
+		
+    echo '</div>';
+  } // replace
+  
+  function is_plugin_installed( $slug ) {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		$all_plugins = get_plugins();
+		
+		if ( !empty( $all_plugins[$slug] ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}  
 }
 
 $ResetWP = new ResetWP();

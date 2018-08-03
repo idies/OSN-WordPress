@@ -1,4 +1,34 @@
 
+ ### v2.5.6 - 2018-07-26 
+ **Changes:** 
+  
+ ### v2.5.6 - 2018-07-26 
+ **Changes:** 
+ * Fix Elementor content forms bug.
+ 
+ ### v2.5.5 - 2018-07-23 
+ **Changes:** 
+ * Add new controls for Elementor content forms.
+ 
+ ### v2.5.4 - 2018-07-11 
+ **Changes:** 
+ * Fixed undefined method for old elementor versions.
+ 
+ ### v2.5.3 - 2018-07-11 
+ **Changes:** 
+ * Small alignment fix for menu icons module
+* Added styling options for Elementor content forms
+ 
+ ### v2.5.2 - 2018-07-06 
+ **Changes:** 
+ * Fixes post grid pagination issue
+* Fixes post grid colors not applying correctly
+* Fixes Templates directory import issue
+* New templates in the templates directory
+* Fixes content forms placeholder not used
+* Fixes for Hestia Theme enhancements module
+* Fixes issue where url's were replaced with CDN url for beta users
+ 
  ### v2.5.1 - 2018-07-02 
  **Changes:** 
  * Fix social icons saving bug. 
